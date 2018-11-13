@@ -1,0 +1,46 @@
+
+
+<div class="card" style="width: 90%;padding: 10px;border: 0;border-left: 1px grey solid;" *ngIf="selectedMovie">
+  <div class="card-header" style="float:right; border:0;margin-bottom:10px">
+    <span>Here goes the movie..</span>
+    <a class="btn btn-default" (click)="turnEditmode(selectedMovie)" style="float:right; color:black;" *ngIf="isEditMode==false">Edit</a>  </div>
+
+  <div class="col-12">
+    <div class="col-5" style="float:left;">
+      <h4 class="card-title">{{selectedMovie.movie.movieName}} ({{ selectedMovie.movie.releaseYear | date:'yyyy' }}) </h4>
+
+    </div>
+    <div class="col-7" style="float:right;">
+      <img class="card-img-top" width="220" height="220" src="{{selectedMovie.movie.thumbnail}}" alt="Card image cap">
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      Cast:
+      <button type="button" class="btn btn-link" *ngFor="let actors of selectedMovie.actors" (click)="viewBio(actors)" data-toggle="modal" data-target="#exampleModal">{{actors.actorName }}</button>
+    </p>
+    <p class="card-text">{{selectedMovie.movie.plot}}</p>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{selectedActor.actorName }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Sex : {{selectedActor.sex }}</p>
+        <p>Dateof Birth : {{selectedActor.dob }}</p>
+        <p>Bio : {{selectedActor.bio }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

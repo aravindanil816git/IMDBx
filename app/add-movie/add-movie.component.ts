@@ -70,11 +70,11 @@ export class AddMovieComponent implements OnInit {
     const headers = new HttpHeaders().set('content-type', 'application/json');
     this.http.post(this.baseUrl + 'api/Home/SaveNewActor', this.newActor, { headers }).subscribe(result => {
       this.newActor.actorId = Number(result);
-      (document.getElementById("actor-modal-close") as HTMLButtonElement).click();
+      (document.getElementById("actor-modal-close")[0] as HTMLButtonElement).click();
       this.actorsList.push(this.newActor);
       this.actorTags.push({ 'display': this.newActor.actorName, 'value': this.newActor });
       console.log(result);
-      (document.getElementById("show-result") as HTMLButtonElement).click();
+      (document.getElementById("show-result")[0] as HTMLButtonElement).click();
 
     }, error => console.error(error));
   }  
@@ -85,11 +85,11 @@ export class AddMovieComponent implements OnInit {
     const headers = new HttpHeaders().set('content-type', 'application/json');
     this.http.post(this.baseUrl + 'api/Home/SaveNewProducer', this.newProducer, { headers }).subscribe(result => {
       this.newProducer.prodId = Number(result);
-      (document.getElementById("producer-modal-close") as HTMLButtonElement).click();
+      (document.getElementById("producer-modal-close")[0] as HTMLButtonElement).click();
       this.producerList.push(this.newProducer);
       this.producerTags.push({ 'display': this.newProducer.prodName, 'value': this.newProducer });
       console.log(result);
-  (document.getElementById("show-result") as HTMLButtonElement).click();
+
     }, error => console.error(error));
   }
 
@@ -100,7 +100,6 @@ export class AddMovieComponent implements OnInit {
     const headers = new HttpHeaders().set('content-type', 'application/json');
     this.http.post(this.baseUrl + 'api/Home/UpdateMovie', this.newmovie_Master, { headers }).subscribe(result => {
       this.newmovie.movieId = Number(result);
-      (document.getElementById("show-result") as HTMLButtonElement).click();
     }, error => console.error(error));
   }
 
