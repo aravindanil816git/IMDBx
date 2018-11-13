@@ -1,0 +1,28 @@
+<h1>Movies..</h1>
+
+<p *ngIf="!movies"><em>Loading...</em></p>
+<div class="row">
+<div class="col-8">
+  <div *ngIf="movies">
+    <div>
+      <div class="card" *ngFor="let movieitem of movies" style="width: 20rem;display:inline-block; margin-right:10px; height:350px;">
+        <img class="card-img-top" height="220" src="{{ movieitem.movie.thumbnail}}" alt="Card image cap">
+        <div class="card-body" style="height: 130px;">
+          <h4 class="card-title" style="color:orange;">{{ movieitem.movie.movieName }}({{ movieitem.movie.releaseYear | date:'yyyy' }})</h4>
+          <div style="height: 15px;overflow: hidden;text-overflow: ellipsis;">
+            <h6>
+              <span *ngFor="let actors of movieitem.actors">{{actors.actorName }} ,</span>
+            </h6>
+          </div>
+          <p class="card-text" style="height: 13px;overflow: hidden;text-overflow: ellipsis;color:grey">{{ movieitem.movie.plot }}.</p>
+          <button type="button" class="btn btn-link" (click)="openViewEditMode(movieitem)">View/Edit</button>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-4">
+  <app-view-edit-blade [selectedMovie]="selectedMovieItem" style="height: 510px;"></app-view-edit-blade>
+</div>
+</div>

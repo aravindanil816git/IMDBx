@@ -1,0 +1,118 @@
+<form>
+  <div class="form-group">
+    <label for="moviename">Name</label>
+    <input type="text" class="form-control" id="moviename" name="moviename" placeholder="Dazling Title" [(ngModel)]="newmovie.movieName">
+  </div>
+  <div class="form-group">
+    <label for="Actorname">Actors</label>
+    <tag-input [(ngModel)]="movieActors" (onAdd)="addActorTags($event)" name="movieactors" theme='minimal' placeholder="Type an actor name" secondaryPlaceholder="Type a name">
+      <tag-input-dropdown [autocompleteItems]="actorTags" [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [limitItemsTo]="10">
+      </tag-input-dropdown>
+    </tag-input>
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#newActorModal">Didn't Find the actor, Add here</button>
+  </div>
+  <div class="form-group">
+    <label for="Producer">Producer</label>
+    <tag-input [(ngModel)]="movieProducer" (onAdd)="addProducer($event)" [maxItems]='1' name="movieproducer" theme='minimal' placeholder="Type a name" econdaryPlaceholder="Type a name">
+      <tag-input-dropdown [autocompleteItems]="producerTags" [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [limitItemsTo]="10">
+      </tag-input-dropdown>
+    </tag-input>
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#newProducerModal">Didn't Find the Producer, Add here</button>
+  </div>
+  <div class="form-group">
+    <label for="plot">Plot</label>
+    <textarea class="form-control" id="plot" rows="3" placeholder="The  greate synopsis" [(ngModel)]="newmovie.plot" name="movieplot"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="releaseDate">Plot</label>
+    <input type="date" class="form-control" id="releaseDate" placeholder="Release Date" [(ngModel)]="newmovie.releaseYear" name="releasedate">
+  </div>
+  <div class="form-group">
+    <label for="movie-img">Thumbnail</label>
+    <input type="text" class="form-control" id="moviename" name="movie-img" placeholder="Url" [(ngModel)]="newmovie.thumbnail">
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="saveNewMovie()" *ngIf="!isEditMode">Save</button>
+  <button type="submit" class="btn btn-primary" (click)="updateMovie()" *ngIf="isEditMode">Update</button>
+</form>
+
+<div class="modal fade" id="newActorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Actor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="actor-name" class="col-form-label" >Name:</label>
+            <input type="text" class="form-control" id="actor-name" [(ngModel)]="newActor.actorName" name="actor-name">
+          </div>
+          <div class="form-group">
+            <label for="actor-sex" class="col-form-label">Sex: </label>
+            <select class="form-control" id="actor-sex" [(ngModel)]="newActor.sex" name="actor-sex">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="actor-dob" class="col-form-label">D.O.B:</label>
+            <input type="date" class="form-control" id="actor-dob" [(ngModel)]="newActor.dob" name="actor-name">
+          </div>
+          <div class="form-group">
+            <label for="actor-bio" class="col-form-label">Bio:</label>
+            <textarea class="form-control" id="actor-bio" [(ngModel)]="newActor.bio" name="actor-bio"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="saveNewActor(newActor)">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div  id="newProducerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Producer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="producer-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="producer-name" [(ngModel)]="newProducer.prodName" name="producer-name">
+          </div>
+          <div class="form-group">
+            <label for="producer-sex" class="col-form-label">Sex: </label>
+            <select class="form-control" id="producer-sex" [(ngModel)]="newProducer.sex" name="producer-sex">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="producer-dob" class="col-form-label">D.O.B:</label>
+            <input type="date" class="form-control" id="producer-dob" [(ngModel)]="newProducer.dob" name="producer-name">
+          </div>
+          <div class="form-group">
+            <label for="producer-bio" class="col-form-label">Bio:</label>
+            <textarea class="form-control" id="producer-bio" [(ngModel)]="newProducer.bio" name="producer-bio"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="saveNewProducer(newProducer)">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
