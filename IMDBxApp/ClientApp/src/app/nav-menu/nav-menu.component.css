@@ -2,12 +2,12 @@ li .glyphicon {
     margin-right: 10px;
 }
 
-/* Highlighting rules for nav menu items 
+
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
-    background-color: #4189C7;
-    color: white;
+  border: 0;
+  border-bottom: 10px solid orange;
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */

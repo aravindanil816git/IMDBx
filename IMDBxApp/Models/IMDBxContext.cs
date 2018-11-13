@@ -1,11 +1,14 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Newtonsoft.Json;
 
 namespace IMDBxApp.Models
 {
     public partial class IMDBxContext : DbContext
     {
+        private const string connectionStr = "Server=.\\SQLEXPRESS;Database=IMDBx;Trusted_Connection=True;";
         public IMDBxContext()
         {
         }
@@ -24,8 +27,8 @@ namespace IMDBxApp.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=IMDBx;Trusted_Connection=True;");
+                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+               optionsBuilder.UseSqlServer(connectionStr);
             }
         }
 
