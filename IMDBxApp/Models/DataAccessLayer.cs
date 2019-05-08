@@ -8,7 +8,7 @@ namespace IMDBxApp.Models
 {
     public class DataAccessLayer
     {
-        IMDBxContext db = new IMDBxContext();
+        IMDBx_2Context db = new IMDBx_2Context();
         List<Movie_Master> movies = new List<Movie_Master>();
 
         public List<Movie_Master> GetMovieList()
@@ -19,7 +19,7 @@ namespace IMDBxApp.Models
                 var movie_info = new Movie_Master();
                 movie_info.movie = movie;
                 List<ActorMaster> actorList = new List<ActorMaster>();
-                List<MovieActorDb>movieActors = db.MovieActorDb.Where(it => it.MovieId == movie.MovieId).ToList();
+                List<CastingDetails>movieActors = db.CastingDetails.Where(it => it.MovieId == movie.MovieId).ToList();
                 movie_info.producer = db.ProducerMaster.Where(it => it.ProdId == movie.ProdId).FirstOrDefault();
                 foreach (var actor in movieActors)
                 {
@@ -65,7 +65,7 @@ namespace IMDBxApp.Models
 
             foreach (var item in newMovie.actors)
             {
-                db.MovieActorDb.Add(new MovieActorDb
+                db.CastingDetails.Add(new CastingDetails
                 {
                     ActorId = item.ActorId,
                     MovieId = newid                   
@@ -90,11 +90,11 @@ namespace IMDBxApp.Models
 
 
 
-                db.MovieActorDb.RemoveRange(db.MovieActorDb.Where(x => x.MovieId == movieId));
+                db.CastingDetails.RemoveRange(db.CastingDetails.Where(x => x.MovieId == movieId));
 
                 foreach (var item in newMovie.actors)
                 {
-                        db.MovieActorDb.Add(new MovieActorDb
+                        db.CastingDetails.Add(new CastingDetails
                         {
                             ActorId = item.ActorId,
                             MovieId = movieId

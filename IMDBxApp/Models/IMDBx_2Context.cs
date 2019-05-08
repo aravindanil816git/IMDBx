@@ -1,25 +1,22 @@
 ﻿using System;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Newtonsoft.Json;
 
 namespace IMDBxApp.Models
 {
-    public partial class IMDBxContext : DbContext
+    public partial class IMDBx_2Context : DbContext
     {
-        private const string connectionStr = "Server=.\\SQLEXPRESS;Database=IMDBx_2;Trusted_Connection=True;";
-        public IMDBxContext()
+        public IMDBx_2Context()
         {
         }
 
-        public IMDBxContext(DbContextOptions<IMDBxContext> options)
+        public IMDBx_2Context(DbContextOptions<IMDBx_2Context> options)
             : base(options)
         {
         }
 
         public virtual DbSet<ActorMaster> ActorMaster { get; set; }
-        public virtual DbSet<MovieActorDb> MovieActorDb { get; set; }
+        public virtual DbSet<CastingDetails> CastingDetails { get; set; }
         public virtual DbSet<MovieMaster> MovieMaster { get; set; }
         public virtual DbSet<ProducerMaster> ProducerMaster { get; set; }
 
@@ -27,8 +24,8 @@ namespace IMDBxApp.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-               optionsBuilder.UseSqlServer(connectionStr);
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=IMDBx_2;Trusted_Connection=True;");
             }
         }
 
@@ -58,19 +55,15 @@ namespace IMDBxApp.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<MovieActorDb>(entity =>
+            modelBuilder.Entity<CastingDetails>(entity =>
             {
-                entity.ToTable("movie_actor_db");
+                entity.ToTable("casting_details");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.ActorId)
-                    .HasColumnName("actor_id")
-                    .HasMaxLength(10);
+                entity.Property(e => e.ActorId).HasColumnName("actor_id");
 
-                entity.Property(e => e.MovieId)
-                    .HasColumnName("movie_id")
-                    .HasMaxLength(10);
+                entity.Property(e => e.MovieId).HasColumnName("movie_id");
             });
 
             modelBuilder.Entity<MovieMaster>(entity =>
